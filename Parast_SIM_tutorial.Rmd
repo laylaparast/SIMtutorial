@@ -1,0 +1,48 @@
+---
+title: "Surrogate Marker Evaluation: A Tutorial Using R"
+output: html_document
+---
+
+```{r global_options, echo=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message = FALSE, tidy=TRUE, tidy.opts=list(width.cutoff=60))
+```
+
+
+```{r}
+
+#load the R package
+library(Rsurrogate)
+
+#take a look at the data
+data(d_example)
+names(d_example)
+
+#for now, we only care about s1.a, y1, s0.a, y0
+d_example$y1[1:10]
+d_example$s1.a[1:10]
+
+#simple visualizations
+par(mfrow = c(2,1))
+plot(density(d_example$y0), xlim = c(0,50), main = "Distribution of Primary Outcome")
+points(density(d_example$y1), typ = "l", col=2)
+legend("topright", col = c(1,2), lty = 1, c("Control","Treatment"))
+
+plot(density(d_example$s0.a), xlim = c(0,15), main = "Distribution of Surrogate Marker")
+points(density(d_example$s1.a), typ = "l", col=2)
+legend("topright", col = c(1,2), lty = 1, c("Control","Treatment"))
+
+#pte, freedman = R_F estimate
+R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone=d_example$y1, yzero=d_example$y0, type = "freedman")
+#ask for standard error and confidence intervals
+R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone=d_example$y1, yzero=d_example$y0, type = "freedman", var=TRUE, conf.int=TRUE)
+
+#pte, wang & taylor, parametric = R_M estimate
+#notice that now we are given delta, delta.s, and R.s
+R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone=d_example$y1, yzero=d_example$y0, type = "model")
+#ask for standard error and confidence intervals
+R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone=d_example$y1, yzero=d_example$y0, type = "model", var=TRUE, conf.int=TRUE)
+
+#pte, parast, nonparametric 
+
+```
+
