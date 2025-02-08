@@ -10,7 +10,7 @@ knitr::opts_chunk$set(warning=FALSE, message = FALSE, tidy=TRUE, tidy.opts=list(
 
 # Introduction
 
-This is an R markdown file (extension is .Rmd) to accompany "Surrogate Marker Evaluation: A Tutorial Using R" by Layla Parast. If you have any trouble with this code, file, or packages, please email me at parast\@austin.utexas.edu and I will help you.
+This is an R markdown file (extension is .Rmd) to accompany "Surrogate Marker Evaluation: A Tutorial Using R" by Layla Parast. If you have any trouble with this code, file, or packages, please email me at parast\@austin.utexas.edu and I will help you. To run this markdown, it is recommended that you have R Version 4.4.0 or higher.
 
 If you are familiar with R markdowns and R in general, you can skip the rest of this section. If you are viewing this as an html file, then this means you are looking at a "knitted" version of the .Rmd file. If you want to see the .Rmd file, you will need to open it using RStudio. If you do not have RStudio, you can download and install it for free at <https://posit.co/downloads/>. You will also need to download and install R, available for free at <https://cran.r-project.org>. Now that you have R and RStudio, download the .Rmd file and open it in RStudio. In the top left corner, click "Visual" if it is not already clicked. This will show you a nicely formatted version of the file. Every chunk of R code is shown in a grey box. To run a single box of R code, click the small green right-pointing arrow in the top right corner of the box. To run all the code above the current grey box you care about, click the small grey down-pointing arrow with a green line below it, also in the top right corner. You will only see these arrows if you are viewing the .Rmd file; they do not appear in the .html file. In this file, a code chunk is often dependent on code chunks that precede it, so if you do not run it sequentially, you may get an error.
 
@@ -18,7 +18,7 @@ The process of going from the .Rmd file to an html file is called "knitting". To
 
 # Install packages
 
-You will need to install the packages below before you run anything else or try to knit this file; that is, press the small green right-pointing arrow in the top right corner of the box. Because the **SurrogateParadoxTest** package is not yet on CRAN, we need to install it from Github using the **devtools** package.
+You will need to install the packages below before you run anything else or try to knit this file; that is, press the small green right-pointing arrow in the top right corner of the box. The **SurrogateParadoxTest** package involves C++ implementation; if you are on a Mac and see error messages about a fortran compiler, please see: https://cran.r-project.org/bin/macosx/tools/ 
 
 ```{r install, eval=FALSE}
 #install the packages from CRAN
@@ -26,12 +26,7 @@ You will need to install the packages below before you run anything else or try 
 install.packages("Rsurrogate")
 install.packages("hetsurr")
 install.packages("OptimalSurrogate")
-
-#this package needs to be installed from Github using devtools
-install.packages("devtools")
-library(devtools)
-devtools::install_github("emily13hsiao/SurrogateParadoxTest",
-    subdir = "SurrogateParadoxTest", build = FALSE)
+install.packages("SurrogateParadoxTest")
 ```
 
 # Proportion of Treatment Effect Explained (Section 3)
@@ -47,32 +42,32 @@ data(d_example)
 names(d_example)
 
 #Estimate PTE using the Freedman approach
-R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone=d_example$y1, yzero=d_example$y0, type = "freedman")
+R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone = d_example$y1, yzero = d_example$y0, type = "freedman")
 
 #ask for variance and confidence intervals
 #set.seed(1)
-R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone=d_example$y1, yzero=d_example$y0, type = "freedman", var=TRUE, conf.int=TRUE)
+R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone = d_example$y1, yzero = d_example$y0, type = "freedman", var = TRUE, conf.int = TRUE)
 ```
 
 This code estimates the PTE using the Wang and Taylor approach.
 ```{r pte_wangtaylor, cache=TRUE}
 #Estimate the PTE using Wang and Taylor approach
 #notice that now we are given delta, delta.s, and R.s
-R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone=d_example$y1, yzero=d_example$y0, type = "model")
+R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone = d_example$y1, yzero = d_example$y0, type = "model")
 
 #ask for variance and confidence intervals
 set.seed(1)
-R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone=d_example$y1, yzero=d_example$y0, type = "model", var=TRUE, conf.int=TRUE)
+R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone = d_example$y1, yzero = d_example$y0, type = "model", var = TRUE, conf.int = TRUE)
 ```
 
 This code estimates the PTE using the nonparametric approach.
 ```{r pte_nonparametric, cache=TRUE}
 #Estimate the PTE using the nonparametric approach 
-R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone=d_example$y1, yzero=d_example$y0, type = "robust")
+R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone = d_example$y1, yzero = d_example$y0, type = "robust")
 
 #ask for variance and confidence intervals
 set.seed(1)
-R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone=d_example$y1, yzero=d_example$y0, type = "robust", var=TRUE, conf.int=TRUE)
+R.s.estimate(sone = d_example$s1.a, szero = d_example$s0.a, yone = d_example$y1, yzero = d_example$y0, type = "robust", var = TRUE, conf.int = TRUE)
 ```
 
 This code takes a look at the range of the surrogate and shows an example when the surrogate supports do not overlap.
@@ -87,7 +82,7 @@ s1.a.temp = d_example$s1.a[d_example$s1.a < 6]
 y1.temp = d_example$y1[d_example$s1.a < 6]
 
 #see resulting warning message
-R.s.estimate(sone = s1.a.temp, szero = d_example$s0.a, yone=y1.temp, yzero=d_example$y0, type = "robust")
+R.s.estimate(sone = s1.a.temp, szero = d_example$s0.a, yone = y1.temp, yzero = d_example$y0, type = "robust")
 ```
 
 # Multiple Surrogates (Section 4.1)
@@ -98,9 +93,7 @@ This code evaluates multiple surrogates, still using the **R.s.estimate** functi
 
 #Estimate the PTE of multiple markers using the Freedman approach 
 set.seed(1)
-R.s.estimate(yone=d_example$y1, yzero=d_example$y0, sone=cbind(d_example$s1.a,d_example$s1.b, 
-d_example$s1.c), szero=cbind(d_example$s0.a, d_example$s0.b, d_example$s0.c), 
-number = "multiple", type = "freedman", var = TRUE, conf.int = TRUE)
+R.s.estimate(yone = d_example$y1, yzero = d_example$y0, sone = cbind(d_example$s1.a, d_example$s1.b, d_example$s1.c), szero = cbind(d_example$s0.a, d_example$s0.b, d_example$s0.c), number = "multiple", type = "freedman", var = TRUE, conf.int = TRUE)
 ```
 
 Next, we use an extension of the Wang & Taylor approach.
@@ -108,9 +101,7 @@ Next, we use an extension of the Wang & Taylor approach.
 ```{r multiple_wangtaylor, cache=TRUE}
 #Estimate the PTE of multiple markers using the Wang & Taylor approach
 set.seed(1)
-R.s.estimate(yone=d_example$y1, yzero=d_example$y0, sone=cbind(d_example$s1.a,d_example$s1.b, 
-d_example$s1.c), szero=cbind(d_example$s0.a, d_example$s0.b, d_example$s0.c), 
-number = "multiple", type = "model", var = TRUE, conf.int = TRUE)
+R.s.estimate(yone = d_example$y1, yzero = d_example$y0, sone = cbind(d_example$s1.a,d_example$s1.b, d_example$s1.c), szero = cbind(d_example$s0.a, d_example$s0.b, d_example$s0.c), number = "multiple", type = "model", var = TRUE, conf.int = TRUE)
 
 ```
 
@@ -120,9 +111,7 @@ Next, we use the robust approach.
 
 #Estimate the PTE of multiple markers using the robust approach
 set.seed(1)
-R.s.estimate(yone=d_example$y1, yzero=d_example$y0, sone=cbind(d_example$s1.a,d_example$s1.b, 
-d_example$s1.c), szero=cbind(d_example$s0.a, d_example$s0.b, d_example$s0.c), 
-number = "multiple", type = "robust", var = TRUE, conf.int = TRUE)
+R.s.estimate(yone = d_example$y1, yzero = d_example$y0, sone = cbind(d_example$s1.a,d_example$s1.b, d_example$s1.c), szero = cbind(d_example$s0.a, d_example$s0.b, d_example$s0.c), number = "multiple", type = "robust", var = TRUE, conf.int = TRUE)
 ```
 
 # Measurement Error (Section 4.2)
@@ -135,13 +124,11 @@ data(d_example_me)
 names(d_example_me)
 
 #Estimate the PTE of a surrogate with measurement error using the disattenuated estimator
-R.s.estimate.me(yone=d_example_me$y1, yzero=d_example_me$y0, sone=d_example_me$s1, szero=d_example_me$s0, parametric = TRUE, estimator = "d", me.variance = 0.5, naive= TRUE, Ronly = FALSE)
+R.s.estimate.me(yone = d_example_me$y1, yzero = d_example_me$y0, sone = d_example_me$s1, szero = d_example_me$s0, parametric = TRUE, estimator = "d", me.variance = 0.5, naive = TRUE, Ronly = FALSE)
 
 #Estimate the PTE of a surrogate with measurement error using SIMEX estimator with quadratic extrapolation
 set.seed(5)
-R.s.estimate.me(yone=d_example_me$y1, yzero=d_example_me$y0, sone=d_example_me$s1,
-szero=d_example_me$s0, parametric = TRUE, estimator = "q", me.variance = 0.5,
-naive= FALSE, Ronly = TRUE)
+R.s.estimate.me(yone = d_example_me$y1, yzero = d_example_me$y0, sone = d_example_me$s1, szero = d_example_me$s0, parametric = TRUE, estimator = "q", me.variance = 0.5, naive = FALSE, Ronly = TRUE)
 ```
 
 This application of the function now uses replicates to estimate the measurement error variance, and then uses SIMEX with quadratic extrapolation.
@@ -160,9 +147,8 @@ var.u
 
 #Estimate the PTE of a surrogate with measurement error using SIMEX estimator with quadratic extrapolation
 set.seed(5)
-R.s.estimate.me(yone=d_example_me$y1, yzero=d_example_me$y0,
-sone=d_example_me$s1, szero=d_example_me$s0, parametric = FALSE, estimator = "q",
-me.variance = var.u, naive= TRUE, Ronly = TRUE)
+R.s.estimate.me(yone = d_example_me$y1, yzero = d_example_me$y0,
+sone = d_example_me$s1, szero = d_example_me$s0, parametric = FALSE, estimator = "q", me.variance = var.u, naive = TRUE, Ronly = TRUE)
 ```
 
 # Censored Outcomes (Section 4.3)
@@ -175,8 +161,7 @@ names(d_example_surv)
 
 #Estimate PTE for censored outcome
 set.seed(4)
-R.s.surv.estimate(xone = d_example_surv$x1, xzero =d_example_surv$x0, deltaone =d_example_surv$delta1, deltazero = d_example_surv$delta0, sone = d_example_surv$s1, szero=d_example_surv$s0, t=2, 
-landmark = 1, var=TRUE, conf.int=TRUE)
+R.s.surv.estimate(xone = d_example_surv$x1, xzero = d_example_surv$x0, deltaone = d_example_surv$delta1, deltazero = d_example_surv$delta0, sone = d_example_surv$s1, szero = d_example_surv$s0, t = 2, landmark = 1, var = TRUE, conf.int = TRUE)
 ```
 
 This code expands upon the above by also estimating the incremental value of the surrogate marker. 
@@ -184,10 +169,7 @@ This code expands upon the above by also estimating the incremental value of the
 ```{r incremental, cache=TRUE}
 #with incremental value
 set.seed(4)
-R.s.surv.estimate(xone = d_example_surv$x1, xzero =d_example_surv$x0, deltaone 
-=d_example_surv$delta1, deltazero = d_example_surv$delta0, sone = d_example_surv$s1, 
-szero=d_example_surv$s0, t=2, landmark = 1, var=TRUE, conf.int=TRUE, 
-incremental.value=TRUE)
+R.s.surv.estimate(xone = d_example_surv$x1, xzero = d_example_surv$x0, deltaone = d_example_surv$delta1, deltazero = d_example_surv$delta0, sone = d_example_surv$s1, szero = d_example_surv$s0, t = 2, landmark = 1, var=TRUE, conf.int=TRUE, incremental.value=TRUE)
 ```
 
 Next, this code expands upon the above by using a baseline covariate to increase efficiency via augmentation. 
@@ -195,10 +177,7 @@ Next, this code expands upon the above by using a baseline covariate to increase
 ```{r augmentation, cache=TRUE}
 #with augmentation
 set.seed(4)
-Aug.R.s.surv.estimate(xone = d_example_surv$x1, xzero =d_example_surv$x0, deltaone 
-=d_example_surv$delta1, deltazero = d_example_surv$delta0, sone = d_example_surv$s1, 
-szero=d_example_surv$s0, t=2, landmark = 1, basis.delta.one = d_example_surv$z1 , basis.delta.zero =
-d_example_surv$z0)
+Aug.R.s.surv.estimate(xone = d_example_surv$x1, xzero = d_example_surv$x0, deltaone = d_example_surv$delta1, deltazero = d_example_surv$delta0, sone = d_example_surv$s1, szero = d_example_surv$s0, t = 2, landmark = 1, basis.delta.one = d_example_surv$z1, basis.delta.zero = d_example_surv$z0)
 
 ```
 
@@ -212,8 +191,7 @@ names(d_example_multiple)
 #Estimate PTE of multiple surrogates with a censored outcome
 #Note, this function also prints the first 10 rows of the perturbation resampling weights as an internal check
 set.seed(4)
-R.multiple.surv(xone = d_example_multiple$x1, xzero = d_example_multiple$x0, deltaone = 
-d_example_multiple$delta1, deltazero = d_example_multiple$delta0, sone =  as.matrix(d_example_multiple$s1), szero = as.matrix(d_example_multiple$s0), t = 1, landmark=0.5, var=TRUE, conf.int=TRUE)
+R.multiple.surv(xone = d_example_multiple$x1, xzero = d_example_multiple$x0, deltaone = d_example_multiple$delta1, deltazero = d_example_multiple$delta0, sone = as.matrix(d_example_multiple$s1), szero = as.matrix(d_example_multiple$s0), t = 1, landmark = 0.5, var = TRUE, conf.int = TRUE)
 ```
 
 # Heterogeneity in the Utility of a Surrogate (Section 4.4)
@@ -230,8 +208,7 @@ names(example.data)
 
 #Examine heterogeneity in the utility of the surrogate
 set.seed(5)
-het.ob = hetsurr.fun(y1=example.data$y1, y0=example.data$y0, s1=example.data$s1, 
-	s0=example.data$s0, w1=example.data$w1, w0=example.data$w0,var=TRUE)
+het.ob = hetsurr.fun(y1 = example.data$y1, y0 = example.data$y0, s1 = example.data$s1, s0 = example.data$s0, w1 = example.data$w1, w0 = example.data$w0,var = TRUE)
 
 # take a look at values returned in het.ob
 names(het.ob)
@@ -246,8 +223,7 @@ dev.off()
 
 #asking for tests for heterogeneity
 set.seed(5)
-het.ob = hetsurr.fun(y1=example.data$y1, y0=example.data$y0, s1=example.data$s1, 
-s0=example.data$s0, w1=example.data$w1, w0=example.data$w0, test = TRUE)
+het.ob = hetsurr.fun(y1 = example.data$y1, y0 = example.data$y0, s1 = example.data$s1, s0 = example.data$s0, w1 = example.data$w1, w0 = example.data$w0, test = TRUE)
 
 #values returned in het.ob, now with testing results
 names(het.ob)
@@ -278,9 +254,8 @@ out = pte_cont(sob = marker_cont_tutorial$sob, yob = marker_cont_tutorial$yob, a
 out$Estimates
 
 #visualize the transformed surrogate
-x <- as.numeric(rownames(out$Transformed.S))
-plot(x, out$Transformed.S[, "est"], ylim = range(out$Transformed.S[, -2]), type = "l",
-las = 1, xlab = "Surrogate Marker", ylab = "Optimal Transformation")
+x = as.numeric(rownames(out$Transformed.S))
+plot(x, out$Transformed.S[, "est"], ylim = range(out$Transformed.S[, -2]), type = "l", las = 1, xlab = "Surrogate Marker", ylab = "Optimal Transformation")
 lines(x, out$Transformed.S[, "lower"], lty = 2)
 lines(x, out$Transformed.S[, "upper"], lty = 2)
 ```
