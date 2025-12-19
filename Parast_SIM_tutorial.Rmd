@@ -10,7 +10,8 @@ knitr::opts_chunk$set(warning=FALSE, message = FALSE, tidy=TRUE, tidy.opts=list(
 
 # Introduction
 
-This is an R markdown file (extension is .Rmd) to accompany "Surrogate Marker Evaluation: A Tutorial Using R" by Layla Parast. If you have any trouble with this code, file, or packages, please email me at parast\@austin.utexas.edu and I will help you. To run this markdown, it is recommended that you have R Version 4.4.0 or higher.
+This is an R markdown file (extension is .Rmd) or html of the markdown (extension is .html) to accompany "Surrogate Marker Evaluation: A Tutorial Using R" by Layla Parast, in Statistics in Medicine (2025),
+44(10-12):e70048. The tutorial covers the following packages: `Rsurrogate`, `hetsurr`, `OptimalSurrogate`, and `SurrogateParadoxTest`. You can find more information about this paper and tutorial [here](https://github.com/laylaparast/SIMtutorial), the `Rsurrogate` package more generally [here](https://github.com/laylaparast/Rsurrogate), the `hetsurr` package more generally [here](https://github.com/laylaparast/hetsurr), the `OptimalSurrogate` package more generally [here](https://github.com/celehs/OptimalSurrogate), and the `SurrogateParadoxTest` package more generally [here](https://github.com/emily13hsiao/SurrogateParadoxTest). The purpose of the tutorial is to walk through examples of surrogate evaluation. If you have any trouble with this code, file, or packages, please email me at parast\@austin.utexas.edu and I will help you. To run this markdown, it is recommended that you have R Version 4.4.0 or higher.
 
 If you are familiar with R markdowns and R in general, you can skip the rest of this section. If you are viewing this as an html file, then this means you are looking at a "knitted" version of the .Rmd file. If you want to see the .Rmd file, you will need to open it using RStudio. If you do not have RStudio, you can download and install it for free at <https://posit.co/downloads/>. You will also need to download and install R, available for free at <https://cran.r-project.org>. Now that you have R and RStudio, download the .Rmd file and open it in RStudio. In the top left corner, click "Visual" if it is not already clicked. This will show you a nicely formatted version of the file. Every chunk of R code is shown in a grey box. To run a single box of R code, click the small green right-pointing arrow in the top right corner of the box. To run all the code above the current grey box you care about, click the small grey down-pointing arrow with a green line below it, also in the top right corner. You will only see these arrows if you are viewing the .Rmd file; they do not appear in the .html file. In this file, a code chunk is often dependent on code chunks that precede it, so if you do not run it sequentially, you may get an error.
 
@@ -31,7 +32,7 @@ install.packages("SurrogateParadoxTest")
 
 # Proportion of Treatment Effect Explained (Section 3)
 
-This code matches the code in the main text of the paper and uses the **R.s.estimate** function in the **Rsurrogate** package.
+This code matches the code in the main text of the paper, available [here](https://github.com/laylaparast/SIMtutorial)  and uses the **R.s.estimate** function in the **Rsurrogate** package.
 
 ```{r pte, cache=TRUE}
 #load the R package

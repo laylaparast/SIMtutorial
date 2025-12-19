@@ -358,11 +358,22 @@ Using R</h1>
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>This is an R markdown file (extension is .Rmd) to accompany
-“Surrogate Marker Evaluation: A Tutorial Using R” by Layla Parast. If
-you have any trouble with this code, file, or packages, please email me
-at parast@austin.utexas.edu and I will help you. To run this markdown,
-it is recommended that you have R Version 4.4.0 or higher.</p>
+<p>This is an R markdown file (extension is .Rmd) or html of the
+markdown (extension is .html) to accompany “Surrogate Marker Evaluation:
+A Tutorial Using R” by Layla Parast, in Statistics in Medicine (2025),
+44(10-12):e70048. The tutorial covers the following packages:
+<code>Rsurrogate</code>, <code>hetsurr</code>,
+<code>OptimalSurrogate</code>, and <code>SurrogateParadoxTest</code>.
+You can find more information about this paper and tutorial <a href="https://github.com/laylaparast/SIMtutorial">here</a>, the
+<code>Rsurrogate</code> package more generally <a href="https://github.com/laylaparast/Rsurrogate">here</a>, the
+<code>hetsurr</code> package more generally <a href="https://github.com/laylaparast/hetsurr">here</a>, the
+<code>OptimalSurrogate</code> package more generally <a href="https://github.com/celehs/OptimalSurrogate">here</a>, and the
+<code>SurrogateParadoxTest</code> package more generally <a href="https://github.com/emily13hsiao/SurrogateParadoxTest">here</a>.
+The purpose of the tutorial is to walk through examples of surrogate
+evaluation. If you have any trouble with this code, file, or packages,
+please email me at parast@austin.utexas.edu and I will help you. To run
+this markdown, it is recommended that you have R Version 4.4.0 or
+higher.</p>
 <p>If you are familiar with R markdowns and R in general, you can skip
 the rest of this section. If you are viewing this as an html file, then
 this means you are looking at a “knitted” version of the .Rmd file. If
@@ -419,8 +430,9 @@ install.packages(&quot;SurrogateParadoxTest&quot;)</code></pre>
 </div>
 <div id="proportion-of-treatment-effect-explained-section-3" class="section level1">
 <h1>Proportion of Treatment Effect Explained (Section 3)</h1>
-<p>This code matches the code in the main text of the paper and uses the
-<strong>R.s.estimate</strong> function in the
+<p>This code matches the code in the main text of the paper, available
+<a href="https://github.com/laylaparast/SIMtutorial">here</a> and uses
+the <strong>R.s.estimate</strong> function in the
 <strong>Rsurrogate</strong> package.</p>
 <pre class="r"><code># load the R package
 library(Rsurrogate)
