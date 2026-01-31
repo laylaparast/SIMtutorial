@@ -117,7 +117,7 @@ R.s.estimate(yone = d_example$y1, yzero = d_example$y0, sone = cbind(d_example$s
 
 # Measurement Error (Section 4.2)
 
-This code evaluates a surrogate measured with error using the **R.s.estimate.me** function in the **Rsurrogate** package. The first two applications of the function use a given variance for the measurement error and use the disattentuated estimator, and the SIMEX estimator with quadratic extrapolation, respectively.
+This code evaluates a surrogate measured with error using the **R.s.estimate.me** function in the **Rsurrogate** package. The first two applications of the function use a given variance for the measurement error and use the disattenuated estimator, and the SIMEX estimator with quadratic extrapolation, respectively.
 
 ```{r measurement_error, cache=TRUE}
 #take a look at the data
